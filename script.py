@@ -51,4 +51,11 @@ for x in names:
 
 for a in result:
     print ("Name: "+ a + " Count: "+str(result[a]))
-#pretty much done it, TODO polish it up
+
+#!TODO;
+#   -delete users with only one entry
+#   -make a point formula:
+#       *based on entry count and/or efford and/or speed
+#       *make dictionary sorted
+#   -is it done? or it should be in a framework or something like that?
+#   -test
