@@ -54,14 +54,36 @@ for x in names:
 sorted_results = sorted(result.items(), key=lambda x: x[1],reverse=True)
 #print(sorted_results)
 for a in sorted_results:
-    print ("Name: "+ a[0] + " Count: "+str(a[1]))
-    
+    print ("Name: "+ a[0] + " Count: "+str(a[1])) ##### ENDPOINT 1
+
+
+def updateLeaderboard(board,name,rank):
+    if rank >19:
+        board['name'].append(1)
+
+LeaderBoard = {}
+for x in names:
+    LeaderBoard[x]=[]
+
+for y in pairs:
+    for x in pairs[y]['entries']:
+        #for y in names:
+            #if x['athlete_name'] == y:
+                #updateLeaderboard(LeaderBoard,x['athlete_name'],x['rank'])
+                #print(y)
+                if x['rank'] > 29:
+                    #print x['rank']
+                    #LeaderBoard.update({x['athlete_name'] : 1 })
+                    LeaderBoard[x['athlete_name']].append(1)
+                    #LeaderBoard[x['athlete_name']].append(x['rank'])
+                if x['rank']<30:
+                    LeaderBoard[x['athlete_name']].append(31-x['rank'])
 
 
 #!TODO;
 #   -delete users with only one entry XXXXX
-#   -make a point formula:
-#       *based on entry count and/or efford and/or speed
+#   -make a point formula:XXXX
+#       *based on rankin in each segment XXXX
 #       *make dictionary sorted XXXXX
 #   -is it done? or it should be in a framework or something like that?
 #   -test
