@@ -48,8 +48,8 @@ for x in names:
     y=indices(names,x)
     if (y>1):
         result[x]=y
-
-
+print ('##########################################')
+print ('############ ENDPOINT 1 ##################')
 #sorted_x = sorted(x.items(), key=operator.itemgetter(1))
 sorted_results = sorted(result.items(), key=lambda x: x[1],reverse=True)
 #print(sorted_results)
@@ -71,15 +71,33 @@ for y in pairs:
             #if x['athlete_name'] == y:
                 #updateLeaderboard(LeaderBoard,x['athlete_name'],x['rank'])
                 #print(y)
-                if x['rank'] > 29:
+                if x['rank'] > 39:
                     #print x['rank']
                     #LeaderBoard.update({x['athlete_name'] : 1 })
                     LeaderBoard[x['athlete_name']].append(1)
                     #LeaderBoard[x['athlete_name']].append(x['rank'])
-                if x['rank']<30:
-                    LeaderBoard[x['athlete_name']].append(31-x['rank'])
+                if x['rank']<40:
+                    LeaderBoard[x['athlete_name']].append(41-x['rank'])
 
+#for x in LeaderBoard:
+FinalStandings = {}
+for x in LeaderBoard:
+    temp=[]
+    score=0
+    temp = LeaderBoard[x]
+    for a in temp:
+        score=score + a
+    FinalStandings[x] = score
 
+print ('##########################################')
+print ('############ ENDPOINT 2 ##################')
+FinalStanding = sorted(FinalStandings.items(), key=lambda x: x[1],reverse=True)
+#print(sorted_results)
+for a in FinalStanding:
+    if a[1]>1:
+        print ("Name: "+ a[0] + " Score: "+str(a[1])) ##### ENDPOINT 1
+
+print ('##########################################')
 #!TODO;
 #   -delete users with only one entry XXXXX
 #   -make a point formula:XXXX
