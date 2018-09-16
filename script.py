@@ -54,13 +54,13 @@ for x in names:
     if (y>1):
         result[x]=y
         
-print ('##########################################')
-print ('############ ENDPOINT 1 ##################')
+#print ('##########################################')
+#print ('############ ENDPOINT 1 ##################')
 #sorted_x = sorted(x.items(), key=operator.itemgetter(1))
 sorted_results = sorted(result.items(), key=lambda x: x[1],reverse=True)
 #print(sorted_results)
-for a in sorted_results:
-    print ("Name: "+ a[0] + " Count: "+str(a[1])) ##### ENDPOINT 1
+#for a in sorted_results:
+#    print ("Name: "+ a[0] + " Count: "+str(a[1])) ##### ENDPOINT 1
 
 LeaderBoard = {}
 for x in names:
@@ -90,15 +90,15 @@ for x in LeaderBoard:
         score=score + a
     FinalStandings[x] = score
 
-print ('##########################################')
-print ('############ ENDPOINT 2 ##################')
+#print ('##########################################')
+#print ('############ ENDPOINT 2 ##################')
 FinalStanding = sorted(FinalStandings.items(), key=lambda x: x[1],reverse=True)
 #print(sorted_results)
-for a in FinalStanding:
-    if a[1]>1:
-        print ("Name: "+ a[0] + " Score: "+str(a[1])) ##### ENDPOINT 1
+#for a in FinalStanding:
+#    if a[1]>1:
+#        print ("Name: "+ a[0] + " Score: "+str(a[1])) ##### ENDPOINT 1
 
-print ('##########################################')
+#print ('##########################################')
 
 
 @app.route("/")
@@ -107,19 +107,21 @@ def hello():
 
 @app.route("/endpoint1")
 def e1():
-    output1 = "##########################################</br>############ ENDPOINT 1 ##################</br>"
+    output1 = "<style>table {border-collapse: collapse;}th, td {border: 2px solid;}</style>##########################################</br>############ ENDPOINT 1 ##################</br>"
+    output1 = output1 + "<table><tr><th>Name</th><th>Count</th></tr>"
     for a in sorted_results:
         #print ("Name: "+ a[0] + " Count: "+str(a[1]))
-        output1=output1 + ("Name: "+ a[0] + " Count: "+str(a[1])) + "</br>"
+        output1=output1 + ("<tr><td>"+ a[0] + "</td><td>"+str(a[1])) + "</td></tr>"
     output1 =output1 + "##########################################"
     return output1
 
 @app.route("/endpoint2")
 def e2():
-    output2 = "##########################################</br>Best ranking athlete of a segment gets 40 points and point acquired is decreasing by one. Last 10 athlete gets 1 points each.</br> Athletes with only one point in total will not be in the final leaderboard.</br>############ ENDPOINT 2 ##################</br>"
+    output2 = "<style>table {border-collapse: collapse;}th, td {border: 2px solid;}</style>##########################################</br>Best ranking athlete of a segment gets 40 points and point acquired is decreased by one.</br> Last 10 athlete gets 1 points each.</br> Athletes with only one point in total will not be in the final leaderboard.</br>############ ENDPOINT 2 ##################</br>"
+    output2 = output2 + "<table><tr><th>Name</th><th>Score</th></tr>"
     for a in FinalStanding:
         if a[1]>1:
             #print ("Name: "+ a[0] + " Score: "+str(a[1]))
-            output2 = output2 + ("Name: "+ a[0] + " Score: "+str(a[1])) + "</br>"
-    output2 =output2 + "##########################################"
+            output2 = output2 + ("<tr><td>"+ a[0] + "</td><td>"+str(a[1])) + "</td></tr>"
+    output2 =output2 + "</table>##########################################"
     return output2
