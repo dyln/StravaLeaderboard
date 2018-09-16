@@ -1,6 +1,11 @@
 import json
 import urllib2
 import operator
+from flask import Flask
+
+app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'thisissecret'
 
 access_token = '418172ed16941e70d4ad096e00315d49260aaa3a'
 #The latitude and longitude for two points describing a rectangular boundary for the search: 
@@ -48,6 +53,7 @@ for x in names:
     y=indices(names,x)
     if (y>1):
         result[x]=y
+        
 print ('##########################################')
 print ('############ ENDPOINT 1 ##################')
 #sorted_x = sorted(x.items(), key=operator.itemgetter(1))
@@ -55,11 +61,6 @@ sorted_results = sorted(result.items(), key=lambda x: x[1],reverse=True)
 #print(sorted_results)
 for a in sorted_results:
     print ("Name: "+ a[0] + " Count: "+str(a[1])) ##### ENDPOINT 1
-
-
-def updateLeaderboard(board,name,rank):
-    if rank >19:
-        board['name'].append(1)
 
 LeaderBoard = {}
 for x in names:
@@ -98,10 +99,27 @@ for a in FinalStanding:
         print ("Name: "+ a[0] + " Score: "+str(a[1])) ##### ENDPOINT 1
 
 print ('##########################################')
-#!TODO;
-#   -delete users with only one entry XXXXX
-#   -make a point formula:XXXX
-#       *based on rankin in each segment XXXX
-#       *make dictionary sorted XXXXX
-#   -is it done? or it should be in a framework or something like that?
-#   -test
+
+
+@app.route("/")
+def hello():
+    return "<p>Hello</p> <p>To see the Endpoint 1 <a href = 'http://127.0.0.1:5000/endpoint1'>click here</a></p> <p>To see the Endpoint 2 <a href = 'http://127.0.0.1:5000/endpoint2'>click here</a></p> "
+
+@app.route("/endpoint1")
+def e1():
+    output1 = "##########################################</br>############ ENDPOINT 1 ##################</br>"
+    for a in sorted_results:
+        #print ("Name: "+ a[0] + " Count: "+str(a[1]))
+        output1=output1 + ("Name: "+ a[0] + " Count: "+str(a[1])) + "</br>"
+    output1 =output1 + "##########################################"
+    return output1
+
+@app.route("/endpoint2")
+def e2():
+    output2 = "##########################################</br>Best ranking athlete of a segment gets 40 points and point acquired is decreasing by one. Last 10 athlete gets 1 points each.</br> Athletes with only one point in total will not be in the final leaderboard.</br>############ ENDPOINT 2 ##################</br>"
+    for a in FinalStanding:
+        if a[1]>1:
+            #print ("Name: "+ a[0] + " Score: "+str(a[1]))
+            output2 = output2 + ("Name: "+ a[0] + " Score: "+str(a[1])) + "</br>"
+    output2 =output2 + "##########################################"
+    return output2
